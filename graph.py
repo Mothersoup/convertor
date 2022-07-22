@@ -1,0 +1,3 @@
+
+
+# this class  inherit setting
