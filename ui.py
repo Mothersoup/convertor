@@ -66,12 +66,12 @@ class Ui_MainWindow(object):
         self.ed_t = self.create_text_input(None, logic.trans_from_ascii, x, y, width, height)
         # binary
         self.binary_text = self.create_label("binary", x, y1 + 2 * height, width, height)
-        self.output = self.create_text_input(None, logic., x, y + 2 * height, width, height)
-        self.ascii_text = self.create_label("ascii",  x, y1 + 4 * height, width, height)
-        self.ascii = self.create_text_input(None,logic.octal_trans() , x, y + 4 * height, width, height)
-        self.octal = self.create_text_input(None, x, y + 6 * height, width, height)
+        self.output = self.create_text_input(None, logic.trans_from_binary, x, y + 2 * height, width, height)
+        self.ascii_text = self.create_label("ascii", x, y1 + 4 * height, width, height)
+        self.ascii = self.create_text_input(None, logic.trans_from_ascii, x, y + 4 * height, width, height)
+        self.octal = self.create_text_input(None, logic.trans_from_octal, x, y + 6 * height, width, height)
         self.octal_text = self.create_label("octal", x, y1 + 6 * height, width, height)
-        self.base64 = self.create_text_input(None, x, y + 8 * height, width, height)
+        self.base64 = self.create_text_input(None, logic.trans_from_base64, x, y + 8 * height, width, height)
         self.base64_text = self.create_label("base64", x, y1 + 8 * height, width, height)
 
         main_window.setCentralWidget(self.centralwidget)
@@ -86,6 +86,23 @@ class Ui_MainWindow(object):
         main_window.setWindowTitle("Convertor")
         QtCore.QMetaObject.connectSlotsByName(main_window)
 
+        # deal with output section
+
+    def set_final_text(self, text, trans_to_various, textinput):
+        textinput.setText(trans_to_various(text))
+
+    def output_final_text(self):
+        print(self)
+        print(self.haspmap)
+        '''for di in self.haspmap:
+            if di != "":
+                all_text = self.haspmap[di](di)
+                self.set_final_text(self.ascii.toPlainText, logic.ascii_trans, all_text)
+                self.set_final_text(self.ed_t.toPlainText, logic.hex_trans, all_text)
+                self.set_final_text(self.octal.toPlainText, logic.octal_trans, all_text)
+                self.set_final_text(self.base64.toPlainText, logic.base64_trans, all_text)
+                self.set_final_text(self.output.toPlainText, logic.binary_trans, all_text)
+'''
 # 1 QWidget()function creates the top level window   "relate with window "
 # 2 QLabel( need input QWidget son class) could set a text in it   "relate with banner"
 # 3 setGeometry()Define the size and position of window also could name a top banner beside cancel

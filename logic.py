@@ -2,6 +2,8 @@ import base64
 
 
 # text should be changed to ascii  and then  append individual in  array  ###
+import binascii
+
 
 def ascii_trans(text):  # text -> ascii
     ascii_value = []
@@ -56,7 +58,10 @@ def trans_from_base64(text):  # base64 -> text
     return base64.b64encode(text).decode('UTF-8')
 
 
-def binary_trans(text):
+def binary_trans(text):  # text -> binary
     return ''.join(format(ord(i), '08b') for i in text)
 
+
+def trans_from_binary(text):  # binary -> text
+    return trans_from_ascii(binascii.b2a_uu(text))
 ##########################################################
