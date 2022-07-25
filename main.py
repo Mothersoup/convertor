@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtWidgets
-import logic
 
 import ui
 
@@ -15,8 +14,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # when push ascii button
 
-    #  self.ui.pushButton.clicked.connect(switch_not_empty())
-        self.ui.pushButton.clicked.connect(ui.Ui_MainWindow.output_final_text)
+        # self.ui.pushButton.clicked.connect(switch_not_empty())
+        self.ui.pushButton.clicked.connect(ui.output_final_text)
+        self.ui.clear.clicked.connect(ui.clear_all)
 
 """"def change_to_ascii(self):
         ascii_text = logic.ascii_trans(self.ui.ed_t.toPlainText())
