@@ -21,7 +21,7 @@ class MainWindow(QtWidgets.QMainWindow):
 """"def change_to_ascii(self):
         ascii_text = logic.ascii_trans(self.ui.ed_t.toPlainText())
         return ascii_text
-    def change_to_binary(self):
+    def change_ascii_to_binary(self):
         binary_text = logic.binary_trans(self.ui.ed_t.toPlainText())"""
 
 

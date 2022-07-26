@@ -1,4 +1,5 @@
 import base64
+import codecs
 
 # text should be changed to ascii  and then  append individual in  array  ###
 import binascii
@@ -8,7 +9,7 @@ def identity(text):
     return text
 
 
-def octal_to_str(text):  # octal_to_str
+def octal_to_ascii(text):  # octal_to_ascii         #not to do
     """
     It takes an octal string and return a string
         :octal_str: octal str like "110 145 154"
@@ -16,16 +17,25 @@ def octal_to_str(text):  # octal_to_str
     str_converted = ""
     for octal_char in text.split(" "):
         str_converted += chr(int(octal_char, 8))
-    return all_ascii(str_converted)
+    return str_converted
 
 
-def str_to_octal(text):  # str_to_octal
-    final_string = ""
-    lis = trans_from_ascii_ls(text)
-    for li in lis:
-        temp = oct(li)[2:len(oct(li))]
-        final_string = final_string + " " + temp
-    return final_string.strip()
+def ascii_to_octal(text):
+    lis = text_to_list_str(text)
+    final_text = ""
+    for i in lis:
+        for sm_i in str(i):
+            final_text = final_text + " " + oct(ord(str(sm_i)))[2:len(oct(ord(str(sm_i))))]
+    return final_text
+
+
+# def str_to_octal(text):  # str_to_octal
+#     final_string = ""
+#     lis = trans_from_ascii_ls(text)
+#     for li in lis:
+#         temp = oct(li)[2:len(oct(li))]
+#         final_string = final_string + " " + temp
+#     return final_string.strip()
 
 
 def to_ascii(text):  # text to ascii return text
@@ -46,9 +56,25 @@ def text_to_list(text):
         if i != " ":
             string = string + str(i)
         else:
-            lis.append(int(string))
+            print(string)
+            if string != "":
+                lis.append(int(string))
+                string = ""
+    if string != "":
+        lis.append(int(string))
+    return lis
+
+
+def text_to_list_str(text):
+    string = ""
+    lis = []
+    for i in text:
+        if i != " ":
+            string = string + str(i)
+        else:
+            lis.append(string)
             string = ""
-    lis.append(int(string))
+    lis.append(string)
     return lis
 
 
@@ -76,78 +102,65 @@ def all_ascii(text):  # ascii text return text
     return ascii_to_text(text_to_list(text))
 
 
-def trans_to_hex(text):  # ascii -> hex
+def trans_ascii_to_hex(text):  # ascii -> hex
     return text.encode("utf-8").hex()
 
 
-def from_hex(text):  # hex -> text
+def from_hex(text):
     byte_array = bytearray.fromhex(text)
     temp = byte_array.decode()  # hex -> ascii
 
     # ------------------------------------------
-    return all_ascii(convert(temp)).strip()
+    return temp.strip()
+
+
+def ascii_to_decimal(text):
+    temp = ""
+    for ch in text:
+        if ch != " ":
+            temp = temp + " " + str(ord(ch))
+    return temp
 
 
 def decimal_to_ascii(text):
-    lis = text_to_list(text)
+    lis = text_to_list_str(text.strip())
     final_str = ""
-    for li in lis:
-        final_str = final_str + str(chr(li))
-    return all_ascii(final_str)
+    for i in lis:
+        final_str = final_str + str(chr(int(i)))
+    return final_str
 
 
-def to_base64(text):  # text -> base64
+def ascii_to_base64(text):  # ascii -> base64
     text = text.encode('UTF-8')
     return base64.b64encode(text).decode('UTF-8')
 
 
-def from_base64(text):  # base64 -> text could happen can't trans error because some ascii can't trans string
+def ascii_from_base64(text):  # base64 ->ascii could happen can't trans error because some ascii can't trans string
     base64_bytes = text.encode('ascii')
     message_bytes = base64.b64decode(base64_bytes)
     message = message_bytes.decode('ascii')
-    return all_ascii(message)
+    return message
 
 
-def to_binary(a):
-    l, m = [], []
+def ascii_to_binary(a):  # ascii to binary
+    l = []
+    final_str = ""
     for i in a:
         l.append(ord(i))
     for i in l:
-        m.append(int(bin(i)[2:]))
-    return m
+        final_str = final_str + " " + str((int(bin(i)[2:]))).strip()
+    return final_str
 
 
-def trans_from_binary(text):  # binary -> text
-    return "".join([chr(int(binary, 2)) for binary in text.split(" ")])
+def binary_to_ascii(text):  # binary -> ascii
+    return decimal_to_ascii(to_ascii("".join([chr(int(binary, 2)) for binary in text.split(" ")])))
 
 
 ##########################################################
-def trans_decimal(text):  # ascii to decimal
-    final_decimal = ""
-    temp_text = ""
-    temp_ls = trans_from_ascii_ls(text)
-    for i in temp_ls:
-        temp_text = temp_text + str(i)
-    for i in temp_text:
-        final_decimal = final_decimal + " " + str(ord(i))
-    return final_decimal
 
 
-def string_to_decimal(text):  # text to decimal
-    return trans_decimal(to_ascii(text).strip()).strip()
-
-
-def to_hex(text):  # text -> hex
-    return trans_to_hex(to_ascii(text))
-
-
-def hex_to_string_tr_octal(text):
-    lis = text_to_list(text)
-    final_str = ""
-    for i in lis:
-        h = str(oct(int(str(i), 16)))
-        final_str = final_str + " " + h[2:len(h)]
-    return octal_to_str(final_str.strip())
+def ascii_to_hex(text):  # ascii -> hex
+    return trans_ascii_to_hex(text)
 
 
 def convert(text):  # add_blank_to_ascii
@@ -162,3 +175,15 @@ def convert(text):  # add_blank_to_ascii
         elif j > 122:
             break
     return text2
+
+
+def hex_to_ascii(text):
+    final_text = ""
+    lis = text_to_list_str(text)
+    for i in lis:
+        final_text = final_text + hex_to_ascii_chr(str(i))
+    return final_text.strip()
+
+
+def hex_to_ascii_chr(text):
+    return codecs.decode(text, 'hex').decode("ASCII")

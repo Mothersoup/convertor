@@ -16,7 +16,6 @@ fromText = {}
 
 
 def output_final_text():
-
     for di in toText:
         text = di.toPlainText()
         if len(text) > 0:
@@ -108,26 +107,26 @@ class Ui_MainWindow(object):
         y1 = y - 42
         # text decimal
         self.decimal_text = self.create_label("decimal", x, y1, width, height)
-        ed_t = self.create_text_input(None, logic.string_to_decimal, logic.trans_decimal, x, y, width, height)
+        ed_t = self.create_text_input(None, logic.ascii_to_decimal, logic.decimal_to_ascii, x, y, width, height)
         # binary
         self.binary_text = self.create_label("binary", x, y1 + 2 * height, width, height)
-        output = self.create_text_input(None, logic.to_binary, logic.trans_from_binary, x, y + 2 * height, width,
+        output = self.create_text_input(None, logic.ascii_to_binary, logic.binary_to_ascii, x, y + 2 * height, width,
                                         height)
 
         self.ascii_text = self.create_label("ascii", x, y1 + 4 * height, width, height)
-        asc2 = self.create_text_input(None, logic.to_ascii, logic.ascii_to_text, x, y + 4 * height, width, height)
-        octal = self.create_text_input(None, logic.str_to_octal, logic.octal_to_str, x, y + 6 * height, width, height)
+        asc2 = self.create_text_input(None, None, None , x, y + 4 * height, width, height)
+        octal = self.create_text_input(None, logic.ascii_to_octal, logic.octal_to_ascii, x, y + 6 * height, width, height)
 
         self.octal_text = self.create_label("octal", x, y1 + 6 * height, width, height)
-        Base64 = self.create_text_input(None, logic.to_base64, logic.from_base64, x, y + 8 * height, width, height)
+        Base64 = self.create_text_input(None,  logic.ascii_to_base64, logic.ascii_from_base64, x, y + 8 * height, width, height)
 
         self.base64_text = self.create_label("base64", x, y1 + 8 * height, width, height)
 
         self.original_text = self.create_label("text", x, y1 + 10 * height, width, height)
-        text = self.create_text_input(None, None, None, x, y + 10 * height, width, height)
+        text = self.create_text_input(None,  logic.all_ascii,  logic.to_ascii, x, y + 10 * height, width, height)
 
         self.hex_text = self.create_label("hex", 2.75 * x, y1 + 10 * height, width, height)
-        Hex = self.create_text_input(None, logic.to_hex, logic.from_hex, 2.75 * x, y + 10 * height, width, height)
+        Hex = self.create_text_input(None, logic.ascii_to_hex,  logic.hex_to_ascii, 2.75 * x, y + 10 * height, width, height)
 
         main_window.setCentralWidget(self.centralwidget)
 
