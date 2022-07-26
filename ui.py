@@ -6,7 +6,7 @@ import logic
 def create_widget(widget, name, int(x), int(y), int(width), int(height)):
     if name is not None:
         widget.setText(name)
-    widget.setGeometry(QtCore.QRect(x, y, width, height))
+    widget.setGeometry(QtCore.QRect(int(x), int(y), int(width), int(height)))
     widget.setObjectName(name)
     return widget
 
