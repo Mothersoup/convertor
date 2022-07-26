@@ -6,3 +6,6 @@
 2.space is not allowed for the first character
 
 3.fields must be cleared before converting
+
+4.project requires 
+pip install PyQt5
