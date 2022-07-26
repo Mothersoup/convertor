@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtWidgets
 import logic
 
 
-def create_widget(widget, name, int(x), int(y), int(width), int(height)):
+def create_widget(widget, name, x, y, width, height):
     if name is not None:
         widget.setText(name)
     widget.setGeometry(QtCore.QRect(int(x), int(y), int(width), int(height)))
